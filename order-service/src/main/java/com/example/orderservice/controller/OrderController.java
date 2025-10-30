@@ -18,7 +18,7 @@ import java.util.UUID;
 //@RequiredArgsConstructor
 //@Tag(name = "주문 API", description = "주문 관련 API입니다") // ✅ 컨트롤러에 대한 Swagger 그룹 설명
 //public class OrderController {
-//    private final ProductClient productClient;
+
 //    private final OrderKafkaProducer orderKafkaProducer;
 //
 //    @GetMapping("/orders")
@@ -34,10 +34,7 @@ import java.util.UUID;
 //                new OrderDto("1", "김순곤", products)
 //        );
 //    }
-//    @GetMapping("/orders/products")
-//    public List<ProductDto> getProductsFromProductService() {
-//        return productClient.getProducts();
-//    }
+
 //
 //    @PostMapping
 //    public String createOrder(@RequestBody CreateOrderRequest request) {
@@ -57,6 +54,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderKafkaProducer orderKafkaProducer;
+    private final ProductClient productClient;
     @PostMapping
     public String createOrder(@RequestBody CreateOrderRequest request) {
         String orderId = UUID.randomUUID().toString();
@@ -67,6 +65,11 @@ public class OrderController {
         );
         orderKafkaProducer.send(event);
         return "✅ 주문 완료 (orderId = " + orderId + ")";
+    }
+
+    @GetMapping("/orders/products")
+    public List<ProductDto> getProductsFromProductService() {
+        return productClient.getProducts();
     }
 }
 
