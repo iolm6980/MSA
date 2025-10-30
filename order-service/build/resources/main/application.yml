@@ -7,6 +7,11 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true # 🔥 이 설정이 없으면 fallback이 동작하지 않음
+  kafka:
+    bootstrap-servers: localhost:9094
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 eureka:
   client:
@@ -38,6 +43,9 @@ resilience4j:
           - java.util.concurrent.TimeoutException
         ignoreExceptions:
           #- java.util.concurrent.TimeoutException
+
+
+
 #springdoc:
 #  api-docs:
 #    enabled: true
