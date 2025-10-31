@@ -69,6 +69,7 @@ public class OrderController {
 
     @GetMapping("/orders/products")
     public List<ProductDto> getProductsFromProductService() {
+        System.out.println("한글 테스트");
         return productClient.getProducts();
     }
 }
