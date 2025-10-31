@@ -1,16 +1,20 @@
 server:
   port: 8082
+
 spring:
   application:
     name: order-service
+
   config:
-    import: optional:configserver:http://localhost:8888
+    import: optional:configserver:http://config-server:8888   # ✅ 변경 (localhost → config-server)
+
   cloud:
     openfeign:
       circuitbreaker:
-        enabled: true # 🔥 이 설정이 없으면 fallback이 동작하지 않음
+        enabled: true
+
   kafka:
-    bootstrap-servers: localhost:9094
+    bootstrap-servers: kafka:9094     # ✅ 변경 (localhost → kafka)
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -20,42 +24,34 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://discovery-server:8761/eureka   # ✅ 변경 (localhost → discovery-server)
 
 resilience4j:
   circuitbreaker:
     instances:
-      productClient: # 반드시 @FeignClient 의 name과 일치
-        registerHealthIndicator: true # actuator에 노출
+      productClient:
+        registerHealthIndicator: true
         slidingWindowType: COUNT_BASED
-        slidingWindowSize: 10 # 10개의 요청 기준
-        minimumNumberOfCalls: 5 # 최소 요청 수 도달해야 상태 평가 시작
-        failureRateThreshold: 50 # 50% 이상 실패 시 OPEN 상태로 전환
-        waitDurationInOpenState: 5s # OPEN -> HALF_OPEN 대기 시간
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
         recordExceptions:
           - java.io.IOException
           - java.util.concurrent.TimeoutException
-        ignoreExceptions:
-          #- java.util.concurrent.TimeoutException
-
+        ignoreExceptions: []
 
 management:
   tracing:
     sampling:
-      probability: 1.0  # 모든 요청 추적
+      probability: 1.0
   zipkin:
     tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+      endpoint: http://zipkin:9411/api/v2/spans   # ✅ 변경 (localhost → zipkin)
 
   endpoints:
     web:
       exposure:
         include: '*'
-
-#springdoc:
-#  api-docs:
-#    enabled: true
-#  swagger-ui:
-#    path: /swagger-ui.html

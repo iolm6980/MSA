@@ -1,0 +1,10 @@
+# 🧱 빌드 단계
+FROM gradle:8.5-jdk21 AS builder
+WORKDIR /workspace
+COPY . .
+RUN ./gradlew :product-service:bootJar --no-daemon
+# 🐳 실행 단계
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=builder /workspace/product-service/build/libs/product-service.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]

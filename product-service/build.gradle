@@ -1,3 +1,9 @@
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management'
+    id 'java-library'
+}
+
 dependencies {
     implementation project(':common')
     implementation 'org.springframework.boot:spring-boot-starter-web'

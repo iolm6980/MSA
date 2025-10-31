@@ -13,7 +13,11 @@
         <module name="msa-onpremise-sample.common.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="21" />
+    <bytecodeTargetLevel target="21">
+      <module name="msa-onpremise-sample.api-gateway.api-gateway" target="23" />
+      <module name="msa-onpremise-sample.api-gateway.api-gateway.main" target="23" />
+      <module name="msa-onpremise-sample.api-gateway.api-gateway.test" target="23" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -32,6 +36,9 @@
       <module name="msa-onpremise-sample.order-service" options="-parameters" />
       <module name="msa-onpremise-sample.order-service.main" options="-parameters" />
       <module name="msa-onpremise-sample.order-service.test" options="-parameters" />
+      <module name="msa-onpremise-sample.product-service" options="-parameters" />
+      <module name="msa-onpremise-sample.product-service.main" options="-parameters" />
+      <module name="msa-onpremise-sample.product-service.test" options="-parameters" />
       <module name="msa-onpremise-sample.user-service" options="-parameters" />
       <module name="msa-onpremise-sample.user-service.main" options="-parameters" />
       <module name="msa-onpremise-sample.user-service.test" options="-parameters" />

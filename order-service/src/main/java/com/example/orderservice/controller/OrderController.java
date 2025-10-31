@@ -1,13 +1,10 @@
 package com.example.orderservice.controller;
+
 import com.example.common.dto.ProductDto;
 import com.example.common.event.OrderCreatedEvent;
 import com.example.orderservice.client.ProductClient;
 import com.example.orderservice.dto.CreateOrderRequest;
-import com.example.orderservice.dto.OrderDto;
 import com.example.orderservice.kafka.OrderKafkaProducer;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
