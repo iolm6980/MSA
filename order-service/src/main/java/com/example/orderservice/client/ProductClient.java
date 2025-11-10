@@ -11,4 +11,7 @@ import java.util.List;
 public interface ProductClient {
     @GetMapping("/products")
     List<ProductDto> getProducts();
+
+    @GetMapping("/products/test")
+    List<ProductDto> getTest();
 }

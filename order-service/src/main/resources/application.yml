@@ -6,7 +6,7 @@ spring:
     name: order-service
 
   config:
-    import: optional:configserver:http://config-server:8888   # ✅ 변경 (localhost → config-server)
+    import: optional:configserver:http://localhost:8888   # ✅ 변경 (localhost → config-server)
 
   cloud:
     openfeign:
@@ -24,7 +24,7 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://discovery-server:8761/eureka   # ✅ 변경 (localhost → discovery-server)
+      defaultZone: http://localhost:8761/eureka   # ✅ 변경 (localhost → discovery-server)
 
 resilience4j:
   circuitbreaker:
@@ -49,7 +49,7 @@ management:
       probability: 1.0
   zipkin:
     tracing:
-      endpoint: http://zipkin:9411/api/v2/spans   # ✅ 변경 (localhost → zipkin)
+      endpoint: http://localhost:9411/api/v2/spans   # ✅ 변경 (localhost → zipkin)
 
   endpoints:
     web:
